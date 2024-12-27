@@ -1,0 +1,39 @@
+[gd_scene load_steps=5 format=3 uid="uid://bk1ufxujqgfds"]
+
+[ext_resource type="PackedScene" uid="uid://2yh43niixaq7" path="res://scenes/player.tscn" id="1_mfr5e"]
+[ext_resource type="PackedScene" uid="uid://b4f6smb7hs6j7" path="res://scenes/climbable_wall.tscn" id="2_kojea"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_77s0p"]
+size = Vector3(60, 2, 60)
+
+[sub_resource type="BoxMesh" id="BoxMesh_8pmhg"]
+size = Vector3(60, 2, 60)
+
+[node name="Main" type="Node"]
+
+[node name="Floor" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, 0)
+collision_layer = 4
+collision_mask = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor"]
+shape = SubResource("BoxShape3D_77s0p")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("BoxMesh_8pmhg")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.689076, 0.724689, 0, -0.724689, 0.689076, 0, 25.1172, 29)
+
+[node name="Player" parent="." instance=ExtResource("1_mfr5e")]
+
+[node name="ClimbableWall" parent="." instance=ExtResource("2_kojea")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, -22)
+
+[node name="ClimbableWall2" parent="." instance=ExtResource("2_kojea")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 2, -22)
+
+[connection signal="player_entered" from="ClimbableWall" to="Player" method="_on_climbable_wall_player_entered"]
+[connection signal="player_exited" from="ClimbableWall" to="Player" method="_on_climbable_wall_player_exited"]
+[connection signal="player_entered" from="ClimbableWall2" to="Player" method="_on_climbable_wall_player_entered"]
+[connection signal="player_exited" from="ClimbableWall2" to="Player" method="_on_climbable_wall_player_exited"]
