@@ -14,11 +14,15 @@ config/name="Run"
 config/description="A simple 3D platformer focus. You run and finish the levels as fast as possible."
 run/main_scene="res://scenes/main.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
-config/icon="res://icon.svg"
+config/icon="res://flower.png"
 
 [autoload]
 
 Global="*res://scripts/global.gd"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/godot-vim/plugin.cfg")
 
 [input]
 

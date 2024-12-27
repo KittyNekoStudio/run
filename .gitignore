@@ -3,3 +3,5 @@
 /android/
 
 .gitattributes
+addons/LICENSE.md
+addons/README.md
