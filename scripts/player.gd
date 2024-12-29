@@ -1,14 +1,21 @@
 extends CharacterBody3D
 
-@export var speed: int = 10
-@export var fall_acceleration: int = 20
-@export var jump_acceleration: int = 5
+@export var walking_speed: int = 10
+@export var running_speed: int = 20
+@export var sliding_speed: int = 25
+@export var fall_acceleration: int = 60
+@export var jump_acceleration: int = 10
 @export var climbing_speed: int = 5
+
+var target_velocity := Vector3.ZERO
+var running: bool = false
+var sliding: bool = false
+var slide_timer: float = 0.0
+var slide_timer_max: float = 1.0
+var slide_vector := Vector2.ZERO
 
 @onready var pivot: Node3D = $Pivot
 @onready var camera: Camera3D = $Pivot/Camera
-
-var target_velocity := Vector3.ZERO
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -25,35 +32,40 @@ func _unhandled_input(event: InputEvent) -> void:
 
 
 func _physics_process(delta: float) -> void:
-	var direction := Vector3.ZERO
-	
-	if Input.is_action_pressed("move_left"):
-		direction.x -= 1
-	if Input.is_action_pressed("move_right"):
-		direction.x += 1
-	if Input.is_action_pressed("move_forward"):
-		direction.z -= 1
-	if Input.is_action_pressed("move_back"):
-		direction.z += 1
-	
-	if direction != Vector3.ZERO:
-		direction = (pivot.basis * direction).normalized()
-		$Character.basis = Basis.looking_at(direction)
+	var input_direction: Vector2 = Input.get_vector("move_left", "move_right", "move_forward", "move_back")
+	var direction: Vector3 = (pivot.transform.basis * Vector3(input_direction.x, 0.0, input_direction.y)).normalized()
 	
 	if not is_on_floor():
 		target_velocity.y -= fall_acceleration * delta
+		
+	if sliding:
+		slide_timer -= delta
+		if slide_timer <= 0:
+			sliding = false
 	
-	if Input.is_action_pressed("run") and is_on_floor():
-		direction *= 2
-	
-	target_velocity.x = direction.x * speed
-	target_velocity.z = direction.z * speed
-	
-	if is_on_floor() and Input.is_action_just_pressed("jump"):
-		target_velocity.y = jump_acceleration
-	
-	if Global.touching_climbable_wall:
-		target_velocity.y = climbing_speed
+	if Input.is_action_pressed("run") and not sliding:
+		sliding = false
+		running = true
+
+	else:
+		running = false
+
+	# Can only slide facing forward
+	if Input.is_action_just_pressed("slide") and input_direction == Vector2(0, -1):
+		running = false
+		sliding = true
+		slide_timer = slide_timer_max
+
+	if running and input_direction != Vector2.ZERO:
+		target_velocity.x = direction.x * running_speed
+		target_velocity.z = direction.z * running_speed
+		
+	elif sliding:
+		target_velocity.x = direction.x * slide_timer * sliding_speed
+		target_velocity.z = direction.z * slide_timer * sliding_speed
+	else:
+		target_velocity.x = direction.x * walking_speed
+		target_velocity.z = direction.z * walking_speed
 	
 	velocity = target_velocity
 	move_and_slide()
