@@ -10,6 +10,7 @@ extends CharacterBody3D
 var target_velocity := Vector3.ZERO
 var running: bool = false
 var sliding: bool = false
+var climbing: bool = false
 var slide_timer: float = 0.0
 var slide_timer_max: float = 1.0
 var slide_vector := Vector2.ZERO
@@ -29,6 +30,7 @@ func _unhandled_input(event: InputEvent) -> void:
 			pivot.rotate_y(-event.relative.x * 0.01)
 			camera.rotate_x(-event.relative.y * 0.01)
 			camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-30), deg_to_rad(60))
+			$Character.rotation.y = pivot.rotation.y
 
 
 func _physics_process(delta: float) -> void:
@@ -43,7 +45,7 @@ func _physics_process(delta: float) -> void:
 		if slide_timer <= 0:
 			sliding = false
 	
-	if Input.is_action_pressed("run") and not sliding:
+	if Input.is_action_pressed("run") and not sliding and not climbing:
 		sliding = false
 		running = true
 
@@ -59,10 +61,14 @@ func _physics_process(delta: float) -> void:
 	if running and input_direction != Vector2.ZERO:
 		target_velocity.x = direction.x * running_speed
 		target_velocity.z = direction.z * running_speed
-		
 	elif sliding:
 		target_velocity.x = direction.x * slide_timer * sliding_speed
 		target_velocity.z = direction.z * slide_timer * sliding_speed
+	elif climbing and input_direction == Vector2(0, -1):
+		if Input.is_action_pressed("run"):
+			target_velocity.y = direction.y + climbing_speed * 2
+		else:
+			target_velocity.y = direction.y + climbing_speed
 	else:
 		target_velocity.x = direction.x * walking_speed
 		target_velocity.z = direction.z * walking_speed
@@ -72,8 +78,8 @@ func _physics_process(delta: float) -> void:
 
 
 func _on_climbable_wall_player_entered() -> void:
-	Global.touching_climbable_wall = true
+	climbing = true
 
 
 func _on_climbable_wall_player_exited() -> void:
-	Global.touching_climbable_wall = false
+	climbing = false

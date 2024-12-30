@@ -6,7 +6,7 @@
 size = Vector3(2, 5, 0.11)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_dnxbo"]
-size = Vector3(2.2, 5, 0.1)
+size = Vector3(2.2, 5, 0.316614)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ex2x1"]
 albedo_color = Color(0.619608, 0.12549, 0.486275, 1)
@@ -20,12 +20,14 @@ collision_layer = 2
 script = ExtResource("1_88mu3")
 
 [node name="Area3D" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.0628059)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+visible = false
 shape = SubResource("BoxShape3D_fwn0b")
 
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
-visible = false
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.108307)
 shape = SubResource("BoxShape3D_dnxbo")
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="."]

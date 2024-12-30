@@ -20,7 +20,7 @@ shape = SubResource("CylinderShape3D_qfea7")
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
 
 [node name="Pivot" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0.24657)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.19899, 0.154272)
 
 [node name="Camera" type="Camera3D" parent="Pivot"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.517808, -0.394659)
