@@ -53,7 +53,7 @@ func _physics_process(delta: float) -> void:
 		running = false
 
 	# Can only slide facing forward
-	if Input.is_action_just_pressed("slide") and input_direction == Vector2(0, -1):
+	if Input.is_action_just_pressed("slide") and input_direction == Vector2(0, -1) and running:
 		running = false
 		sliding = true
 		slide_timer = slide_timer_max
@@ -72,6 +72,12 @@ func _physics_process(delta: float) -> void:
 	else:
 		target_velocity.x = direction.x * walking_speed
 		target_velocity.z = direction.z * walking_speed
+		
+	if Input.is_action_just_pressed("jump") and is_on_floor():
+		if running:
+			target_velocity.y = jump_acceleration * 1.5
+		else:
+			target_velocity.y = jump_acceleration
 	
 	velocity = target_velocity
 	move_and_slide()
