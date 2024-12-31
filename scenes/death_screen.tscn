@@ -1,0 +1,38 @@
+[gd_scene load_steps=2 format=3 uid="uid://cgrl8il6p144s"]
+
+[ext_resource type="Script" path="res://scenes/death_screen.gd" id="1_2pxii"]
+
+[node name="DeathScreen" type="Node"]
+script = ExtResource("1_2pxii")
+
+[node name="Label" type="Label" parent="."]
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.147
+anchor_right = 0.5
+anchor_bottom = 0.147
+offset_left = -114.5
+offset_top = -38.256
+offset_right = 114.5
+offset_bottom = 37.744
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 50
+text = "You Died!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label2" type="Label" parent="."]
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.147
+anchor_right = 0.5
+anchor_bottom = 0.147
+offset_left = -114.5
+offset_top = 219.744
+offset_right = 114.5
+offset_bottom = 295.744
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 50
+text = "Press space to restart"
+horizontal_alignment = 1
+vertical_alignment = 1

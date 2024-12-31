@@ -1,8 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://c0dilj8lgd0bl"]
+[gd_scene load_steps=8 format=3 uid="uid://c0dilj8lgd0bl"]
 
 [ext_resource type="PackedScene" uid="uid://b4f6smb7hs6j7" path="res://scenes/climbable_wall.tscn" id="1_3ojyw"]
+[ext_resource type="Script" path="res://scripts/level_1.gd" id="1_kkbj5"]
 [ext_resource type="PackedScene" uid="uid://2yh43niixaq7" path="res://scenes/player.tscn" id="1_o0xio"]
 [ext_resource type="PackedScene" uid="uid://bwge7qup30617" path="res://scenes/finish_level.tscn" id="3_108yt"]
+[ext_resource type="PackedScene" uid="uid://t18qp7k0lrxu" path="res://scenes/death_box.tscn" id="4_x1udm"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_iw8ab"]
 size = Vector3(60, 2, 60)
@@ -11,6 +13,7 @@ size = Vector3(60, 2, 60)
 size = Vector3(60, 2, 60)
 
 [node name="Level1" type="Node"]
+script = ExtResource("1_kkbj5")
 
 [node name="ClimbableWall2" parent="." instance=ExtResource("1_3ojyw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 2, -22)
@@ -37,7 +40,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, -22)
 [node name="FinishLevel" parent="." instance=ExtResource("3_108yt")]
 transform = Transform3D(2.98023e-08, 0, -1, 0, 1, 0, 1, 0, 2.98023e-08, -0.13917, 2.4033, -21.0747)
 
-[connection signal="player_entered" from="ClimbableWall2" to="Player" method="_on_climbable_wall_player_entered"]
-[connection signal="player_exited" from="ClimbableWall2" to="Player" method="_on_climbable_wall_player_exited"]
-[connection signal="player_entered" from="ClimbableWall" to="Player" method="_on_climbable_wall_player_entered"]
-[connection signal="player_exited" from="ClimbableWall" to="Player" method="_on_climbable_wall_player_exited"]
+[node name="DeathBox" parent="." instance=ExtResource("4_x1udm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -21.2111, 0)
+
+[connection signal="body_entered" from="DeathBox" to="." method="_on_death_box_body_entered"]

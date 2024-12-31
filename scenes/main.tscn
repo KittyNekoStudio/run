@@ -2,11 +2,11 @@
 
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_uvbet"]
 [ext_resource type="PackedScene" uid="uid://dcd1lcfap720b" path="res://scenes/timer.tscn" id="3_tjauw"]
-[ext_resource type="PackedScene" uid="uid://c0dilj8lgd0bl" path="res://scenes/level_1.tscn" id="6_lrxr2"]
+[ext_resource type="PackedScene" uid="uid://cc0apgwbddrkh" path="res://scenes/title_screen.tscn" id="4_de7t7"]
 
 [node name="Main" type="Node"]
 script = ExtResource("1_uvbet")
 
 [node name="Timer" parent="." instance=ExtResource("3_tjauw")]
 
-[node name="Level1" parent="." instance=ExtResource("6_lrxr2")]
+[node name="TitleScreen" parent="." instance=ExtResource("4_de7t7")]

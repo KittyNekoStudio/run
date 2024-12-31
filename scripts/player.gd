@@ -33,6 +33,11 @@ func _unhandled_input(event: InputEvent) -> void:
 			$Character.rotation.y = pivot.rotation.y
 
 
+func _ready() -> void:
+	SignalBus.connect("player_entered", _on_climbable_wall_entered)
+	SignalBus.connect("player_exited", _on_climbable_wall_exited)
+
+
 func _physics_process(delta: float) -> void:
 	var input_direction: Vector2 = Input.get_vector("move_left", "move_right", "move_forward", "move_back")
 	var direction: Vector3 = (pivot.transform.basis * Vector3(input_direction.x, 0.0, input_direction.y)).normalized()
@@ -83,9 +88,9 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 
 
-func _on_climbable_wall_player_entered() -> void:
+func _on_climbable_wall_entered() -> void:
 	climbing = true
 
 
-func _on_climbable_wall_player_exited() -> void:
+func _on_climbable_wall_exited() -> void:
 	climbing = false
