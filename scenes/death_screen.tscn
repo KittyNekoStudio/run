@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://cgrl8il6p144s"]
 
-[ext_resource type="Script" path="res://scenes/death_screen.gd" id="1_2pxii"]
+[ext_resource type="Script" path="res://scripts/death_screen.gd" id="1_2pxii"]
 
 [node name="DeathScreen" type="Node"]
 script = ExtResource("1_2pxii")

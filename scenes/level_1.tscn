@@ -1,46 +1,45 @@
-[gd_scene load_steps=8 format=3 uid="uid://c0dilj8lgd0bl"]
+[gd_scene load_steps=8 format=3 uid="uid://co1xppabm5b5o"]
 
 [ext_resource type="PackedScene" uid="uid://b4f6smb7hs6j7" path="res://scenes/climbable_wall.tscn" id="1_3ojyw"]
-[ext_resource type="Script" path="res://scripts/level_1.gd" id="1_kkbj5"]
+[ext_resource type="PackedScene" uid="uid://chbxrs3c32jgh" path="res://scenes/base_level.tscn" id="1_475xf"]
 [ext_resource type="PackedScene" uid="uid://2yh43niixaq7" path="res://scenes/player.tscn" id="1_o0xio"]
 [ext_resource type="PackedScene" uid="uid://bwge7qup30617" path="res://scenes/finish_level.tscn" id="3_108yt"]
 [ext_resource type="PackedScene" uid="uid://t18qp7k0lrxu" path="res://scenes/death_box.tscn" id="4_x1udm"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_iw8ab"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_whhi8"]
 size = Vector3(60, 2, 60)
 
-[sub_resource type="BoxMesh" id="BoxMesh_mmv8d"]
+[sub_resource type="BoxMesh" id="BoxMesh_bsihf"]
 size = Vector3(60, 2, 60)
 
-[node name="Level1" type="Node"]
-script = ExtResource("1_kkbj5")
+[node name="Level1" instance=ExtResource("1_475xf")]
 
-[node name="ClimbableWall2" parent="." instance=ExtResource("1_3ojyw")]
+[node name="ClimbableWall2" parent="." index="0" instance=ExtResource("1_3ojyw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 2, -22)
 
-[node name="Floor" type="StaticBody3D" parent="."]
+[node name="Floor" type="StaticBody3D" parent="." index="1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, 0)
 collision_layer = 4
 collision_mask = 0
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor"]
-shape = SubResource("BoxShape3D_iw8ab")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor" index="0"]
+shape = SubResource("BoxShape3D_whhi8")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor"]
-mesh = SubResource("BoxMesh_mmv8d")
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor" index="1"]
+mesh = SubResource("BoxMesh_bsihf")
 
-[node name="Player" parent="." instance=ExtResource("1_o0xio")]
+[node name="Player" parent="." index="2" instance=ExtResource("1_o0xio")]
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." index="3"]
 transform = Transform3D(1, 0, 0, 0, 0.689076, 0.724689, 0, -0.724689, 0.689076, 0, 25.1172, 29)
 
-[node name="ClimbableWall" parent="." instance=ExtResource("1_3ojyw")]
+[node name="ClimbableWall" parent="." index="4" instance=ExtResource("1_3ojyw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, -22)
 
-[node name="FinishLevel" parent="." instance=ExtResource("3_108yt")]
+[node name="FinishLevel" parent="." index="5" instance=ExtResource("3_108yt")]
 transform = Transform3D(2.98023e-08, 0, -1, 0, 1, 0, 1, 0, 2.98023e-08, -0.13917, 2.4033, -21.0747)
 
-[node name="DeathBox" parent="." instance=ExtResource("4_x1udm")]
+[node name="DeathBox1" parent="." index="6" instance=ExtResource("4_x1udm")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -21.2111, 0)
 
-[connection signal="body_entered" from="DeathBox" to="." method="_on_death_box_body_entered"]
+[connection signal="body_entered" from="DeathBox1" to="." method="_on_death_box_body_entered"]

@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://chbxrs3c32jgh"]
+
+[ext_resource type="Script" path="res://scripts/base_level.gd" id="1_vug0x"]
+
+[node name="BaseLevel" type="Node"]
+script = ExtResource("1_vug0x")

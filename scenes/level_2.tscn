@@ -1,0 +1,38 @@
+[gd_scene load_steps=7 format=3 uid="uid://60brm0mwwckp"]
+
+[ext_resource type="PackedScene" uid="uid://chbxrs3c32jgh" path="res://scenes/base_level.tscn" id="1_msjx0"]
+[ext_resource type="PackedScene" uid="uid://2yh43niixaq7" path="res://scenes/player.tscn" id="2_clj0g"]
+[ext_resource type="PackedScene" uid="uid://bwge7qup30617" path="res://scenes/finish_level.tscn" id="3_a284v"]
+[ext_resource type="PackedScene" uid="uid://t18qp7k0lrxu" path="res://scenes/death_box.tscn" id="4_jwy7i"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_5masu"]
+size = Vector3(60, 2, 60)
+
+[sub_resource type="BoxMesh" id="BoxMesh_4n1bf"]
+size = Vector3(60, 2, 60)
+
+[node name="Level2" instance=ExtResource("1_msjx0")]
+
+[node name="Floor" type="StaticBody3D" parent="." index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, 0)
+collision_layer = 4
+collision_mask = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor" index="0"]
+shape = SubResource("BoxShape3D_5masu")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor" index="1"]
+mesh = SubResource("BoxMesh_4n1bf")
+
+[node name="Player" parent="." index="1" instance=ExtResource("2_clj0g")]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." index="2"]
+transform = Transform3D(1, 0, 0, 0, 0.689076, 0.724689, 0, -0.724689, 0.689076, 0, 25.1172, 29)
+
+[node name="FinishLevel" parent="." index="3" instance=ExtResource("3_a284v")]
+transform = Transform3D(2.98023e-08, 0, -1, 0, 1, 0, 1, 0, 2.98023e-08, -0.13917, 2.4033, -21.0747)
+
+[node name="DeathBox" parent="." index="4" instance=ExtResource("4_jwy7i")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -21.2111, 0)
+
+[connection signal="body_entered" from="DeathBox" to="." method="_on_death_box_body_entered"]
