@@ -26,7 +26,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.0628059)
 visible = false
 shape = SubResource("BoxShape3D_fwn0b")
 
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
+[node name="Collider" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.108307)
 shape = SubResource("BoxShape3D_dnxbo")
 

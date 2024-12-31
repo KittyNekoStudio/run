@@ -42,17 +42,17 @@ func _physics_process(delta: float) -> void:
 		
 	if sliding:
 		slide_timer -= delta
+		# TODO! make player lower to the ground while sliding
 		if slide_timer <= 0:
 			sliding = false
 	
 	if Input.is_action_pressed("run") and not sliding and not climbing:
 		sliding = false
 		running = true
-
 	else:
 		running = false
 
-	# Can only slide facing forward
+	# Can only slide facing forward while running
 	if Input.is_action_just_pressed("slide") and input_direction == Vector2(0, -1) and running:
 		running = false
 		sliding = true

@@ -1,11 +1,16 @@
-[gd_scene load_steps=2 format=3 uid="uid://bwge7qup30617"]
+[gd_scene load_steps=3 format=3 uid="uid://bwge7qup30617"]
+
+[ext_resource type="Script" path="res://scripts/finish_level.gd" id="1_in65p"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_0yv62"]
 size = Vector3(1, 4.11139, 4.32397)
 
 [node name="FinishLevel" type="Area3D"]
 collision_layer = 0
+script = ExtResource("1_in65p")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0223694, -0.408569)
 shape = SubResource("BoxShape3D_0yv62")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
